@@ -1,4 +1,4 @@
-# 🌦️ API Data Collector
+# 🌦️ API Data Collector 🌤️
 
 Projeto em Python que recolhe dados meteorológicos da API OpenWeather e guarda localmente os resultados em ficheiros JSON, um ficheiro por cidade e execução.
 
