@@ -1,1 +1,16 @@
-/config.py
+# Python
+__pycache__/
+*.pyc
+
+# PyCharm
+.idea/
+
+# Virtualenv
+.venv/
+
+# Dados gerados
+data/
+
+# Config local
+config.py
+
