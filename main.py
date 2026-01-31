@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 from datetime import datetime
 from config import API_KEY
 
@@ -34,8 +35,9 @@ def extrair_info(dados):
 
 def guardar_dados(info):
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    cidade_safe = info["cidade"].lower().replace(" ", "_")
+    cidade_safe = info["cidade"].lower().replace(" ", "-")
     nome_ficheiro = f"data/{cidade_safe}_{timestamp}.json"
+    os.makedirs("data", exist_ok=True)
     with open(nome_ficheiro, "w", encoding="utf-8") as f:
         json.dump(info, f, indent=4, ensure_ascii=False)
 
