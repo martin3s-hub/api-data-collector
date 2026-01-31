@@ -34,7 +34,8 @@ def extrair_info(dados):
 
 def guardar_dados(info):
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    nome_ficheiro = f"data/weather_{timestamp}.json"
+    cidade_safe = info["cidade"].lower().replace(" ", "_")
+    nome_ficheiro = f"data/{cidade_safe}_{timestamp}.json"
     with open(nome_ficheiro, "w", encoding="utf-8") as f:
         json.dump(info, f, indent=4, ensure_ascii=False)
 
