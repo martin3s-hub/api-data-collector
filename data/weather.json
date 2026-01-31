@@ -1,0 +1,45 @@
+{
+    "coord": {
+        "lon": -9.1333,
+        "lat": 38.7167
+    },
+    "weather": [
+        {
+            "id": 802,
+            "main": "Clouds",
+            "description": "nuvens dispersas",
+            "icon": "03d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 12.31,
+        "feels_like": 11.4,
+        "temp_min": 11.74,
+        "temp_max": 12.77,
+        "pressure": 1016,
+        "humidity": 69,
+        "sea_level": 1016,
+        "grnd_level": 1008
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 6.69,
+        "deg": 310
+    },
+    "clouds": {
+        "all": 40
+    },
+    "dt": 1769276701,
+    "sys": {
+        "type": 1,
+        "id": 6901,
+        "country": "PT",
+        "sunrise": 1769240919,
+        "sunset": 1769276892
+    },
+    "timezone": 0,
+    "id": 2267057,
+    "name": "Lisboa",
+    "cod": 200
+}
