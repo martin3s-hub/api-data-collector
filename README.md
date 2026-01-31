@@ -73,6 +73,8 @@ Os ficheiros serão guardados automaticamente na pasta data/
 - Melhorar estrutura do projeto  
 - Criar segundo projeto usando outra API  
 
+
+---
 ## 🧑‍💻 Autor
 
 Pedro Martins  
