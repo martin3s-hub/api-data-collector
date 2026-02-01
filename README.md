@@ -92,15 +92,66 @@ Exemplo de output:
 ---
 ## ⚙️ Como funciona
 
-1. O utilizador introduz as cidades (separadas por vírgulas)
-2. O programa consulta a API OpenWeather
-3. Extrai os dados relevantes (temperatura, humidade, descrição, timestamp)
-4. Guarda automaticamente:
+O programa pode ser usado de duas formas:
 
-   - um ficheiro JSON por cidade  
-   - um ficheiro CSV acumulado  
+---
 
-O ficheiro CSV vai sendo atualizado a cada execução, criando um histórico simples dos dados recolhidos.
+### ▶️ Modo interativo (manual)
+
+Executa:
+
+```bash
+python main.py
+```
+
+Depois escreve as cidades:
+
+```text
+Lisboa, Porto, Madrid
+```
+
+---
+
+### ▶️ Modo automático (CLI)
+
+Podes passar as cidades diretamente pela linha de comando:
+
+```bash
+python main.py Lisboa Porto Madrid
+```
+
+---
+
+### ▶️ Guardar apenas em CSV
+
+Usa a flag `--csv-only`:
+
+```bash
+python main.py Lisboa Porto --csv-only
+```
+
+Neste modo:
+
+- Não são criados ficheiros JSON  
+- Apenas o ficheiro `data/dados.csv` é atualizado  
+
+---
+
+## 🚨 Tratamento de erros
+
+O programa distingue:
+
+- Cidade não encontrada  
+- Erros da API (401, 500, etc)  
+- Erros de rede  
+
+Exemplos:
+
+```text
+Cidade não encontrada
+Erro da API (401): Unauthorized
+Erro de rede para Lisboa
+```
 
 ## 📁 Estrutura do projeto
 
@@ -126,7 +177,7 @@ api-data-collector/
 - [x] Criar pasta automaticamente  
 - [x] Timestamp nos ficheiros  
 - [x] Exportar para CSV  
-- [ ] Argumentos por linha de comando  
+- [x] Argumentos por linha de comando 
 - [ ] Histórico diário  
 - [ ] Gráficos simples  
 
