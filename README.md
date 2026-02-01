@@ -14,6 +14,16 @@ Projeto em Python que recolhe dados meteorológicos da API OpenWeather e guarda 
 - Tratamento de erros de rede
 - Guarda resultados com timestamp
 - Cria automaticamente pasta `data/`
+- Geração automática de gráficos de temperatura
+
+---
+## 📊 Exemplo de gráfico gerado
+
+O projeto gera automaticamente gráficos de temperatura com base nos dados recolhidos.
+
+Exemplo para a cidade de Viseu:
+
+![Gráfico de temperatura em Viseu](charts/grafico_viseu.png)
 
 ---
 
@@ -21,7 +31,9 @@ Projeto em Python que recolhe dados meteorológicos da API OpenWeather e guarda 
 
 - Python 3.10+
 - Conta gratuita em https://openweathermap.org
-- Biblioteca requests
+- requests
+- pandas
+- matplotlib
 ---
 
 ## 🚀 Instalação
@@ -152,21 +164,75 @@ Cidade não encontrada
 Erro da API (401): Unauthorized
 Erro de rede para Lisboa
 ```
+---
+## 🧪 Exemplo completo de execução
 
+### 1️⃣ Recolher dados meteorológicos
+
+Executa:
+
+```bash
+python main.py Viseu Porto Lisboa
+```
+Ou em modo interativo:
+```bash
+python main.py
+```
+Depois escreve:
+```text
+Viseu, Porto, Lisboa
+```
+
+Isto irá:
+
+- Consultar a API OpenWeather
+- Criar ficheiros JSON por cidade
+- Atualizar o ficheiro data/dados.csv
+
+
+### 2️⃣ Atualizar apenas CSV
+```bash
+python main.py Viseu Porto --csv-only
+```
+Neste modo:
+
+- Não são criados ficheiros JSON
+- Apenas o CSV é atualizado
+
+### 3️⃣ Gerar gráfico de temperatura
+
+Depois de existirem dados no CSV:
+```bash
+python grafico.py Viseu
+```
+O gráfico será guardado automaticamente em:
+```bash
+charts/grafico_viseu.png
+```
+Fluxo típico do projeto:
+```bash
+python main.py Viseu Porto
+python grafico.py Viseu
+```
+---
 ## 📁 Estrutura do projeto
 
 ```text
 api-data-collector/
 │
 ├── main.py
+├── grafico.py
 ├── config.py
 ├── requirements.txt
 ├── README.md
 │
-└── data/
-    ├── lisboa_2026-01-31_10-32-12.json
-    ├── porto_2026-01-31_10-32-15.json
-    └── dados.csv
+├── data/
+│   └── dados.csv
+│
+└── charts/
+    └── grafico_viseu.png
+
+
 ```
 
 ---
@@ -179,7 +245,7 @@ api-data-collector/
 - [x] Exportar para CSV  
 - [x] Argumentos por linha de comando 
 - [ ] Histórico diário  
-- [ ] Gráficos simples  
+- [x] Gráficos simples  
 
 ---
 
@@ -192,7 +258,7 @@ Projeto criado para praticar:
 - JSON / CSV
 - Automação simples
 - Organização de projetos
-- Requests
+- requests
 
 
 
