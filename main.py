@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+import csv
+import argparse
 from datetime import datetime
 from config import API_KEY
 
@@ -15,8 +17,9 @@ def obter_tempo(cidade):
 
     try:
         resposta = requests.get(url, params=params, timeout=10)
-        resposta.raise_for_status()
-        return resposta.json()
+        dados = resposta.json()
+
+        return dados
 
     except requests.exceptions.RequestException as e:
         print(f"Erro de rede para {cidade}: {e}")
@@ -43,10 +46,42 @@ def guardar_dados(info):
 
     print(f"Dados guardados em {nome_ficheiro}")
 
-def main():
-    entrada = input("Cidades (separadas por vírgulas): ")
+def guardar_csv(info):
+    os.makedirs("data", exist_ok=True)
+    ficheiro_csv = "data/dados.csv"
+    ficheiro_existe = os.path.isfile(ficheiro_csv)
 
-    cidades = [c.strip() for c in entrada.split(",")]
+    with open(ficheiro_csv, "a", newline="", encoding="utf-8") as csvfile:
+        campos = info.keys()
+        writer = csv.DictWriter(csvfile, fieldnames=campos)
+
+        if not ficheiro_existe:
+            writer.writeheader()
+
+        writer.writerow(info)
+
+    print("Dados adicionados ao CSV")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Recolhe dados meteorológicos por cidade")
+
+    parser.add_argument(
+        "cidades",
+        nargs="*",
+        help="Lista de cidades (ex: Lisboa Porto Madrid)"
+    )
+
+    args = parser.parse_args()
+
+    # Se vierem cidades pelo terminal
+    if args.cidades:
+        cidades = args.cidades
+
+    # Senão, pede ao utilizador
+    else:
+        entrada = input("Cidades (separadas por vírgulas): ")
+        cidades = [c.strip() for c in entrada.split(",")]
 
     for cidade in cidades:
         print(f"\n A processar {cidade}...")
@@ -62,6 +97,7 @@ def main():
 
         info = extrair_info(dados)
         guardar_dados(info)
+        guardar_csv(info)
 
 
 if __name__ == "__main__":
