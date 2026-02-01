@@ -9,21 +9,31 @@ from config import API_KEY
 def obter_tempo(cidade):
     url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
-        "q" : cidade,
-        "appid" : API_KEY,
-        "units" : "metric",
-        "lang" : "pt"
+        "q": cidade,
+        "appid": API_KEY,
+        "units": "metric",
+        "lang": "pt"
     }
 
     try:
         resposta = requests.get(url, params=params, timeout=10)
-        dados = resposta.json()
 
-        return dados
+        if resposta.status_code == 404:
+            return {"erro": "cidade"}
+
+        if resposta.status_code != 200:
+            return {
+                "erro": "api",
+                "codigo": resposta.status_code,
+                "mensagem": resposta.reason
+            }
+
+        return resposta.json()
 
     except requests.exceptions.RequestException as e:
         print(f"Erro de rede para {cidade}: {e}")
         return None
+
 
 def extrair_info(dados):
     info = {
@@ -67,6 +77,12 @@ def main():
     parser = argparse.ArgumentParser(description="Recolhe dados meteorológicos por cidade")
 
     parser.add_argument(
+        "--csv-only",
+        action="store_true",
+        help="Guarda apenas no CSV (não cria ficheiros JSON)"
+    )
+
+    parser.add_argument(
         "cidades",
         nargs="*",
         help="Lista de cidades (ex: Lisboa Porto Madrid)"
@@ -74,11 +90,9 @@ def main():
 
     args = parser.parse_args()
 
-    # Se vierem cidades pelo terminal
     if args.cidades:
         cidades = args.cidades
 
-    # Senão, pede ao utilizador
     else:
         entrada = input("Cidades (separadas por vírgulas): ")
         cidades = [c.strip() for c in entrada.split(",")]
@@ -91,12 +105,18 @@ def main():
         if not dados:
             continue
 
-        if dados.get("cod") != 200:
+        if dados.get("erro") == "cidade":
             print("Cidade não encontrada")
             continue
 
+        if dados.get("erro") == "api":
+            print(f"Erro da API ({dados['codigo']}): {dados['mensagem']}")
+            continue
+
         info = extrair_info(dados)
-        guardar_dados(info)
+        if not args.csv_only:
+            guardar_dados(info)
+
         guardar_csv(info)
 
 
