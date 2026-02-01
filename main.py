@@ -1,10 +1,17 @@
 import requests
 import json
-import os
 import csv
 import argparse
 from datetime import datetime
-from config import API_KEY
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+
+if not API_KEY:
+    raise ValueError("API_KEY não encontrada. Verifica o ficheiro .env")
 
 def obter_tempo(cidade):
     url = "https://api.openweathermap.org/data/2.5/weather"

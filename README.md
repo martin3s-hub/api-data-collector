@@ -5,8 +5,9 @@
 
 Projeto em Python que recolhe dados meteorológicos da API OpenWeather e guarda localmente os resultados em ficheiros JSON e CSV, um ficheiro JSON por cidade, por execução.
 
----
+Pequeno projeto em Python para praticar consumo de APIs REST, variáveis de ambiente (.env), linha de comando e geração de gráficos.
 
+---
 ## 📌 Funcionalidades
 
 - Consulta do tempo por cidade
@@ -62,14 +63,19 @@ pip install -r requirements.txt
 ```
 ### 4. Configurar API Key
 
-Cria um ficheiro `config.py` na raiz do projeto:
-```python
-API_KEY = "A_TUA_API_KEY_AQUI"
+```bash
+cp .env.example .env
+```
+
+Editar o ficheiro `.env`
+
+```env
+API_KEY=A_TUA_API_KEY_AQUI
 ```
 (Obtém a key em https://openweathermap.org
 )
 
-⚠️ Não faças commit do ficheiro `config.py` (já está incluído no `.gitignore`).
+⚠️ O ficheiro .env não deve ser enviado para o GitHub.
 
 ### 5. Executar o programa
 ```bash
@@ -222,7 +228,6 @@ api-data-collector/
 │
 ├── main.py
 ├── grafico.py
-├── config.py
 ├── requirements.txt
 ├── README.md
 │
