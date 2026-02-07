@@ -9,12 +9,16 @@ __pycache__/
 .venv/
 
 # Dados gerados
-data/
+data/*
+!data/.gitkeep
 
 # Config local
 config.py
 
+# Variáveis de ambiente
 .env
 
-charts/
+# Gráficos gerados
+charts/*
+!charts/.gitkeep
 
